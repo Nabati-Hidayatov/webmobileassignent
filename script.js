@@ -111,6 +111,7 @@ function renderCart() {
   document.querySelector('#empty-cart').hidden = cartSeatIds.length > 0;
   document.querySelector('#header-count').textContent = String(cartSeatIds.length);
   updateSeatStates();
+  saveCart();
 }
 function addSeat() {
   const seat = seats.find(item => item.id === inspectedSeatId);
@@ -125,6 +126,16 @@ function removeSeat(seatId) {
   if (inspectedSeatId === seatId) inspectSeat(seatId);
 }
 
+const cartStorageKey = 'campusTheatreCart';
+function readCart() {
+  const stored = localStorage.getItem(cartStorageKey);
+  if (!stored) return [];
+  try { const value = JSON.parse(stored); return Array.isArray(value) ? value : []; }
+  catch { return []; }
+}
+function saveCart() { localStorage.setItem(cartStorageKey, JSON.stringify(cartSeatIds)); }
+
 createVenue();
+cartSeatIds = readCart().filter(id => seats.some(seat => seat.id === id && !seat.unavailable));
 renderCart();
 updateMap();
