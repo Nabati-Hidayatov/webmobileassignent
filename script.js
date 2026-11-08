@@ -72,4 +72,25 @@ sectionsRoot.addEventListener('click', event => {
   if (button && !button.disabled) inspectSeat(button.dataset.seatId);
 });
 
+const venueLayout = document.querySelector('#venue-layout');
+let mapScale = 1, mapX = 0, mapY = 0;
+function updateMap() {
+  venueLayout.style.setProperty('--zoom', mapScale);
+  venueLayout.style.setProperty('--pan-x', `${mapX}px`);
+  venueLayout.style.setProperty('--pan-y', `${mapY}px`);
+}
+function moveMap(direction) {
+  if (direction === 'up') mapY += 34;
+  if (direction === 'down') mapY -= 34;
+  if (direction === 'left') mapX += 34;
+  if (direction === 'right') mapX -= 34;
+  mapX = Math.max(-220, Math.min(220, mapX)); mapY = Math.max(-220, Math.min(220, mapY)); updateMap();
+}
+function changeZoom(amount) { mapScale = Math.max(.7, Math.min(1.55, mapScale + amount)); updateMap(); }
+document.querySelectorAll('[data-move]').forEach(button => button.addEventListener('click', () => moveMap(button.dataset.move)));
+document.querySelector('[data-zoom="in"]').addEventListener('click', () => changeZoom(.1));
+document.querySelector('[data-zoom="out"]').addEventListener('click', () => changeZoom(-.1));
+document.querySelector('#reset-view').addEventListener('click', () => { mapScale = 1; mapX = 0; mapY = 0; updateMap(); });
+
 createVenue();
+updateMap();
