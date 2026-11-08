@@ -135,6 +135,23 @@ function readCart() {
 }
 function saveCart() { localStorage.setItem(cartStorageKey, JSON.stringify(cartSeatIds)); }
 
+const mapViewport = document.querySelector('#map-viewport');
+let dragStart = null;
+mapViewport.addEventListener('wheel', event => {
+  event.preventDefault(); changeZoom(event.deltaY < 0 ? .08 : -.08);
+}, { passive: false });
+mapViewport.addEventListener('mousedown', event => {
+  if (event.target.closest('button')) return;
+  dragStart = { x: event.clientX - mapX, y: event.clientY - mapY };
+  mapViewport.classList.add('is-dragging');
+});
+window.addEventListener('mousemove', event => {
+  if (!dragStart) return;
+  mapX = Math.max(-220, Math.min(220, event.clientX - dragStart.x));
+  mapY = Math.max(-220, Math.min(220, event.clientY - dragStart.y)); updateMap();
+});
+window.addEventListener('mouseup', () => { dragStart = null; mapViewport.classList.remove('is-dragging'); });
+
 createVenue();
 cartSeatIds = readCart().filter(id => seats.some(seat => seat.id === id && !seat.unavailable));
 renderCart();

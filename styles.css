@@ -43,3 +43,8 @@ h1, h2 { letter-spacing: -.5px; }
 .seat:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #e9b96f; outline-offset: 2px; }
 @media (max-width: 760px) { .ticketing-grid { grid-template-columns: 1fr; } .purchase-column { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .page-shell { padding: 20px 12px; } .event-label { display: none; } .purchase-column { grid-template-columns: 1fr; } .map-viewport { min-height: 400px; } }
+.map-viewport { cursor: grab; }
+.map-viewport:active { cursor: grabbing; }
+.map-viewport.is-dragging .venue-layout { transition: none; }
+.venue-layout { transition: transform .18s ease-out; user-select: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
