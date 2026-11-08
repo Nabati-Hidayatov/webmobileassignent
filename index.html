@@ -10,7 +10,7 @@
 <body>
   <header class="site-header">
     <a class="wordmark" href="#top">Campus Theatre</a>
-    <a class="header-link" href="#top">Your cart <span id="header-count">0</span></a>
+    <a class="header-link" href="#your-cart">Your cart <span id="header-count">0</span></a>
   </header>
   <main id="top" class="page-shell">
     <section class="intro"><h1>Choose your seats.</h1>
@@ -48,6 +48,10 @@
         </div>
         <p id="unavailable-message" hidden>This seat is unavailable.</p>
         <button id="add-seat" type="button" disabled>Add to cart</button>
+      </section><section class="panel cart-panel" id="your-cart" aria-live="polite">
+        <p class="eyebrow">YOUR ORDER</p><h2>Your cart</h2>
+        <ul id="cart-list"></ul><p id="empty-cart">Your cart is empty.</p>
+        <p class="total">Total <strong id="cart-total">$0.00</strong></p>
       </section></aside>
     </section>
   </main>

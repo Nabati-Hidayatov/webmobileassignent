@@ -92,5 +92,29 @@ document.querySelector('[data-zoom="in"]').addEventListener('click', () => chang
 document.querySelector('[data-zoom="out"]').addEventListener('click', () => changeZoom(-.1));
 document.querySelector('#reset-view').addEventListener('click', () => { mapScale = 1; mapX = 0; mapY = 0; updateMap(); });
 
+const cartList = document.querySelector('#cart-list');
+const cartTotal = document.querySelector('#cart-total');
+function renderCart() {
+  cartList.innerHTML = ''; let total = 0;
+  cartSeatIds.forEach(seatId => {
+    const seat = seats.find(item => item.id === seatId); if (!seat) return;
+    total += seat.price;
+    const item = document.createElement('li');
+    item.textContent = `${seat.sectionName}, row ${seat.row}, seat ${String(seat.number).padStart(2, '0')} — $${seat.price.toFixed(2)}`;
+    cartList.append(item);
+  });
+  cartTotal.textContent = `$${total.toFixed(2)}`;
+  document.querySelector('#empty-cart').hidden = cartSeatIds.length > 0;
+  document.querySelector('#header-count').textContent = String(cartSeatIds.length);
+  updateSeatStates();
+}
+function addSeat() {
+  const seat = seats.find(item => item.id === inspectedSeatId);
+  if (!seat || seat.unavailable || cartSeatIds.includes(seat.id)) return;
+  cartSeatIds.push(seat.id); renderCart(); inspectSeat(seat.id);
+}
+addSeatButton.addEventListener('click', addSeat);
+
 createVenue();
+renderCart();
 updateMap();
