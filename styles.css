@@ -1,0 +1,13 @@
+* { box-sizing: border-box; }
+:root { --ink: #202724; --muted: #79827d; --paper: #f6f7f3; --card: #fff; --green: #286d55; --line: #e7eae5; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 14px 'Segoe UI', Arial, sans-serif; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+.site-header { display: flex; align-items: center; justify-content: space-between; height: 68px; padding: 0 4%; background: white; border-bottom: 1px solid var(--line); }
+.wordmark { font-weight: 700; text-decoration: none; }
+.eyebrow { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.page-shell { max-width: 1280px; margin: auto; padding: 32px; }
+h1, h2 { letter-spacing: -.5px; }
+.intro { margin-bottom: 22px; }
+.intro h1 { margin: 6px 0; font-size: 36px; }
+.intro p:last-child, .map-toolbar, .legend { color: var(--muted); }
