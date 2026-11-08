@@ -20,6 +20,17 @@ function createVenue() {
       const rowElement = document.createElement('div');
       rowElement.className = 'seat-row';
       rowElement.setAttribute('aria-label', `Row ${rowName}`);
+      for (let number = 1; number <= section.seatsPerRow; number += 1) {
+        const seatNumber = String(number).padStart(2, '0');
+        const seatCode = `${rowName}-${seatNumber}`;
+        const seat = { id: `${section.id}-${seatCode}`, sectionName: section.name, row: rowName, number, price: section.price, unavailable: section.unavailable.includes(seatCode) };
+        seats.push(seat);
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'seat'; button.textContent = seatNumber; button.dataset.seatId = seat.id;
+        button.setAttribute('aria-label', `${section.name}, row ${rowName}, seat ${seatNumber}${seat.unavailable ? ', unavailable' : ', available'}`);
+        if (seat.unavailable) { button.classList.add('is-unavailable'); }
+        rowElement.append(button);
+      }
       rowsContainer.append(rowElement);
     });
     sectionElement.append(rowsContainer);
