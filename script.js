@@ -101,6 +101,10 @@ function renderCart() {
     total += seat.price;
     const item = document.createElement('li');
     item.textContent = `${seat.sectionName}, row ${seat.row}, seat ${String(seat.number).padStart(2, '0')} — $${seat.price.toFixed(2)}`;
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button'; removeButton.className = 'remove-ticket'; removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => removeSeat(seatId));
+    item.append(removeButton);
     cartList.append(item);
   });
   cartTotal.textContent = `$${total.toFixed(2)}`;
@@ -114,6 +118,12 @@ function addSeat() {
   cartSeatIds.push(seat.id); renderCart(); inspectSeat(seat.id);
 }
 addSeatButton.addEventListener('click', addSeat);
+
+function removeSeat(seatId) {
+  cartSeatIds = cartSeatIds.filter(id => id !== seatId);
+  renderCart();
+  if (inspectedSeatId === seatId) inspectSeat(seatId);
+}
 
 createVenue();
 renderCart();
