@@ -26,7 +26,18 @@
         </div></div>
         <p class="legend">Available · Inspected · In cart · Unavailable</p>
       </section>
-      
+      <aside class="purchase-column">
+      <section class="panel" aria-live="polite">
+        <p class="eyebrow">YOUR SEAT</p><h2 id="detail-heading">Select a seat</h2>
+        <p id="detail-note">Choose a seat to inspect its section, row, and price.</p>
+        <div id="seat-detail" hidden>
+          <p>Section <strong id="detail-section"></strong></p>
+          <p>Row and seat <strong id="detail-location"></strong></p>
+          <p>Price <strong id="detail-price"></strong></p>
+        </div>
+        <p id="unavailable-message" hidden>This seat is unavailable.</p>
+        <button id="add-seat" type="button" disabled>Add to cart</button>
+      </section></aside>
     </section>
   </main>
 </body>

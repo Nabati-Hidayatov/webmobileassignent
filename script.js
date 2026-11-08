@@ -38,4 +38,38 @@ function createVenue() {
   });
 }
 
+let inspectedSeatId = null;
+let cartSeatIds = [];
+const detailHeading = document.querySelector('#detail-heading');
+const seatDetail = document.querySelector('#seat-detail');
+const unavailableMessage = document.querySelector('#unavailable-message');
+const addSeatButton = document.querySelector('#add-seat');
+function inspectSeat(seatId) {
+  const seat = seats.find(item => item.id === seatId);
+  if (!seat) return;
+  inspectedSeatId = seat.id;
+  detailHeading.textContent = seat.unavailable ? 'Seat unavailable' : 'Seat inspected';
+  unavailableMessage.hidden = !seat.unavailable;
+  seatDetail.hidden = seat.unavailable;
+  if (!seat.unavailable) {
+    document.querySelector('#detail-section').textContent = seat.sectionName;
+    document.querySelector('#detail-location').textContent = `Row ${seat.row} · Seat ${String(seat.number).padStart(2, '0')}`;
+    document.querySelector('#detail-price').textContent = `$${seat.price.toFixed(2)}`;
+  }
+  addSeatButton.disabled = seat.unavailable || cartSeatIds.includes(seat.id);
+  updateSeatStates();
+}
+function updateSeatStates() {
+  document.querySelectorAll('.seat').forEach(button => {
+    const seat = seats.find(item => item.id === button.dataset.seatId);
+    if (!seat) return;
+    button.classList.toggle('is-inspected', inspectedSeatId === seat.id && !seat.unavailable && !cartSeatIds.includes(seat.id));
+    button.classList.toggle('is-in-cart', cartSeatIds.includes(seat.id));
+  });
+}
+sectionsRoot.addEventListener('click', event => {
+  const button = event.target.closest('.seat');
+  if (button && !button.disabled) inspectSeat(button.dataset.seatId);
+});
+
 createVenue();
