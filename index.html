@@ -22,7 +22,7 @@
           <p><strong>90</strong> seats · 3 sections</p></div>
         <div class="map-toolbar">
       <p>Select a seat to see its details.</p>
-      <div class="controls" aria-label="Venue map controls">
+      <div class="controls" role="group" aria-label="Venue map controls">
         <button type="button" data-move="up" aria-label="Move view up">↑</button>
         <button type="button" data-move="left" aria-label="Move view left">←</button>
         <button type="button" data-move="down" aria-label="Move view down">↓</button>
@@ -32,10 +32,16 @@
         <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
       </div>
     </div>
-        <div class="map-viewport" id="map-viewport"><div class="venue-layout" id="venue-layout">
-          <div class="stage">STAGE</div><div id="sections-root" class="sections-root"></div><div class="map-foot">MAIN ENTRANCE</div>
+        <div class="map-viewport" id="map-viewport" role="group" aria-label="Interactive seating map"><div class="venue-layout" id="venue-layout">
+          <div class="stage"><span></span><strong>STAGE</strong><span></span></div><div id="sections-root" class="sections-root"></div><div class="map-foot"><span>MAIN ENTRANCE</span><span class="entrance-mark" aria-hidden="true">⌄</span><span>MAIN ENTRANCE</span></div>
         </div></div>
-        <p class="legend">Available · Inspected · In cart · Unavailable</p>
+        <div class="map-legend" aria-label="Seat status legend">
+          <span><i class="legend-seat available" aria-hidden="true"></i> Available</span>
+          <span><i class="legend-seat inspected" aria-hidden="true"></i> Inspected</span>
+          <span><i class="legend-seat in-cart" aria-hidden="true"></i> In cart</span>
+          <span><i class="legend-seat unavailable" aria-hidden="true"></i> Unavailable</span>
+        </div>
+        <p class="map-hint">Scroll to zoom <span>·</span> Drag to move</p>
       </section>
       <aside class="purchase-column">
       <section class="panel" aria-live="polite">
